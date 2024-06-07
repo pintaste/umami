@@ -1,0 +1,19 @@
+name: Sync with upstream
+
+on:
+  schedule:
+    - cron:  '0 0 * * *'  # Runs every day at midnight
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v2
+
+    - name: Pull from upstream
+      run: |
+        git remote add upstream https://github.com/umami-software/umami.git
+        git fetch upstream
+        git pull upstream master
+        git push
